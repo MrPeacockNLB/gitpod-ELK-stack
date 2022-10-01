@@ -7,6 +7,10 @@ services:
     environment:
       discovery.type: single-node
       ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+      # enable installing plugins
+      xpack.security.enabled: true
+      xpack.security.authc.api_key.enabled: true
+      ELASTIC_PASSWORD: "password"
     ulimits:
       nofile:
         # This fixes ES startup
@@ -44,6 +48,9 @@ services:
   kibana:
     image: kibana:7.16.1
     container_name: kib
+    environment:
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=password
     ports:
       - "5601:5601"
     depends_on:
