@@ -7,6 +7,11 @@ services:
     environment:
       discovery.type: single-node
       ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+    ulimits:
+      nofile:
+        # This fixes ES startup
+        soft: 65536
+        hard: 65536
     ports:
       - "9200:9200"
       - "9300:9300"
